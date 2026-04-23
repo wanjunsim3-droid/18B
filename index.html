@@ -251,13 +251,63 @@
             }
         });
 
+        // 텔레그램 봇 설정
+        const TELEGRAM_BOT_TOKEN = '8762807652:AAHCBmAMo-74Yqpg_3mhjWwFbHzyHeair7o';
+        const TELEGRAM_CHAT_ID = '8699438791';
+
         // Form submission
         const loiForm = document.getElementById('loi-form');
         if(loiForm) {
             loiForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('입점의향서가 성공적으로 접수되었습니다.\n담당자가 확인 후 빠르게 연락드리겠습니다.');
-                loiForm.reset();
+                
+                // 전송 중 상태 표시 및 중복 클릭 방지
+                const submitBtn = loiForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = '전송 중...';
+
+                // 폼 데이터 가져오기
+                const companyName = document.getElementById('companyName').value;
+                const managerName = document.getElementById('managerName').value;
+                const contact = document.getElementById('contact').value;
+                const area = document.getElementById('area').value;
+                const purpose = document.getElementById('purpose').value;
+
+                // 텔레그램으로 보낼 메시지 양식 구성
+                const message = `🏢 [입점의향서 신규 접수 - 레이어드허브]\n-----------------------------------\n▪️ 상호명: ${companyName}\n▪️ 담당자: ${managerName}\n▪️ 연락처: ${contact}\n▪️ 희망면적: ${area}\n▪️ 희망유형: ${purpose}\n-----------------------------------`;
+
+                // 텔레그램 API 호출
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('입점의향서가 성공적으로 접수되었습니다.\n담당자가 확인 후 빠르게 연락드리겠습니다.');
+                        loiForm.reset();
+                    } else {
+                        alert('접수 전송에 실패했습니다. (봇 설정 필요)');
+                        console.error('Telegram API Error:', data);
+                    }
+                })
+                .catch(error => {
+                    alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                });
             });
         }
     </script>
