@@ -556,6 +556,167 @@ h1, h2, h3, h4 {
     font-weight: 700;
 }
 
+/* Floorplan Section */
+.floorplan-section {
+    background-color: #fff;
+}
+
+.floorplan-layout {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+}
+
+.floorplan-map-wrapper {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.floorplan-map {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 비율 */
+}
+
+.building-outline {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 2px solid #cbd5e1;
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+.unit-block {
+    position: absolute;
+    background-color: rgba(249, 115, 22, 0.7); /* 주황색 반투명 */
+    border: 2px solid #ea580c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    border-radius: 4px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.unit-block:hover {
+    background-color: rgba(249, 115, 22, 0.9);
+    transform: scale(1.02);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+}
+
+.unit-label {
+    padding: 0.2rem 0.5rem;
+}
+
+/* 실제 도면의 위치 비율에 대략적으로 맞춤 */
+.block-101-111 {
+    bottom: 5%; left: 5%; width: 45%; height: 22%;
+}
+
+.block-112-117 {
+    bottom: 5%; right: 10%; width: 30%; height: 22%;
+}
+
+.block-118-121 {
+    top: 40%; right: 10%; width: 15%; height: 20%;
+}
+
+.other-block {
+    position: absolute;
+    background-color: rgba(148, 163, 184, 0.3);
+    border: 1px dashed #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.block-office-1 {
+    top: 30%; left: 5%; width: 15%; height: 35%;
+}
+
+.block-office-2 {
+    top: 5%; right: 10%; width: 35%; height: 20%;
+}
+
+.core-area {
+    position: absolute;
+    top: 30%; left: 30%; width: 30%; height: 40%;
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.floorplan-table-wrapper {
+    background: #fff;
+}
+
+.unit-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+}
+
+.unit-table th, .unit-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.unit-table th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.unit-table td {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.table-divider td {
+    padding: 0.25rem;
+    background-color: #f1f5f9;
+}
+
+.table-notice {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .floorplan-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .floorplan-map {
+        padding-bottom: 100%; /* Make map taller on mobile */
+    }
+}
+
 /* LOI Section */
 .loi-wrapper {
     display: grid;
