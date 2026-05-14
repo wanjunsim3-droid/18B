@@ -573,6 +573,32 @@
                 });
             });
         }
+        // 도메인에 따른 전화번호 동적 변경 스크립트
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDomain = window.location.hostname;
+            // .kr 도메인으로 접속했을 때 동작
+            if (currentDomain.includes('레이어드허브.kr') || currentDomain.includes('xn--hy1b43db4g7xi89b487a.kr')) {
+                const targetNumber = '010-8280-8245';
+                
+                // 1. 전화걸기 링크(href) 일괄 변경
+                document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href.includes('1666-5984') || href.includes('010-2235-8245')) {
+                        link.setAttribute('href', `tel:${targetNumber}`);
+                    }
+                });
+
+                // 2. 화면에 보이는 텍스트(전화번호) 일괄 변경
+                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                while (node = walker.nextNode()) {
+                    let text = node.nodeValue;
+                    if (text.includes('1666-5984') || text.includes('010-2235-8245')) {
+                        node.nodeValue = text.replace(/1666-5984/g, targetNumber).replace(/010-2235-8245/g, targetNumber);
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
